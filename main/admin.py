@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bestseller
+from .models import *
 from django import forms
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -13,3 +13,5 @@ class PostAdmin(admin.ModelAdmin):
     form = ProductAdminForm
 
 admin.site.register(Bestseller, PostAdmin)
+
+admin.site.register(Slider)
