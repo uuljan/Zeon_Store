@@ -1,10 +1,20 @@
 from django.db import models
 
+class Slider(models.Model):
+    img1 = models.ImageField(upload_to='carusel-img')
+    img2 = models.ImageField(upload_to='carusel-img')
+    img3 = models.ImageField(upload_to='carusel-img')
+    img4 = models.ImageField(upload_to='carusel-img')
+    img5 = models.ImageField(upload_to='carusel-img')
+    main_url = models.URLField(max_length=200, blank=True)
+    # def __str__(self):
+    #     return self.name
+
 class Bestseller(models.Model):
     productID = models.CharField('ArticleID', max_length=50, primary_key=True)
     image = models.ImageField(upload_to ='products')
     COLOR = [
-        # ('1', 'aquamarine'),
+        ('1', 'aquamarine'),
         ('2', 'lightGreen'),
         ('3', 'tan'),
         ('4', 'saddleBrown'),
