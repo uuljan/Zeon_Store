@@ -6,7 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import *
 
 
-# Добавила пагинацию для "Хиты продаж"
+# Добавила свою пагинацию для "Хиты продаж и Новинки"
 class PaginationBestseller(PageNumberPagination):
     page_size = 8
     max_page_size = 1000
@@ -29,6 +29,21 @@ class BestsellerView(ModelViewSet):
 class SliderView(ModelViewSet):
     serializer_class = SliderSerializer
     queryset = Slider.objects.all()
+    def get_serializer_context(self):
+        return {
+            'request': self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+class NoveltiesView(ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = NoveltiesSerializer
+    queryset = Bestseller.objects.all()
+    pagination_class = PaginationBestseller
+
     def get_serializer_context(self):
         return {
             'request': self.request
