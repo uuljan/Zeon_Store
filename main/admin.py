@@ -13,6 +13,5 @@ class PostAdmin(admin.ModelAdmin):
     form = ProductAdminForm
 
 admin.site.register(Bestseller, PostAdmin)
-
 admin.site.register(Slider)
-admin.site.register(Novelties)
+admin.site.register(Noveltie)

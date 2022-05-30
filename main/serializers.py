@@ -16,5 +16,5 @@ class BestsellerSerializer(serializers.ModelSerializer):
 class NoveltiesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Bestseller
+        model = Noveltie
         fields = '__all__'

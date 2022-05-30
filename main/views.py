@@ -7,7 +7,7 @@ from .serializers import *
 
 
 # Добавила свою пагинацию для "Хиты продаж и Новинки"
-class PaginationBestseller(PageNumberPagination):
+class MyPagination(PageNumberPagination):
     page_size = 8
     max_page_size = 1000
 
@@ -15,7 +15,7 @@ class BestsellerView(ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = BestsellerSerializer
     queryset = Bestseller.objects.all()
-    pagination_class = PaginationBestseller
+    pagination_class = MyPagination
 
     def get_serializer_context(self):
         return {
@@ -38,11 +38,11 @@ class SliderView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
-class NoveltiesView(ModelViewSet):
+class NoveltieView(ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = NoveltiesSerializer
-    queryset = Bestseller.objects.all()
-    # pagination_class = PaginationBestseller
+    queryset = Noveltie.objects.all()
+    pagination_class = MyPagination
 
     def get_serializer_context(self):
         return {
@@ -52,3 +52,4 @@ class NoveltiesView(ModelViewSet):
     def get_serializer(self, *args, **kwargs):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
+

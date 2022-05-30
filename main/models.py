@@ -35,7 +35,7 @@ class Bestseller(models.Model):
         return self.title
 
 
-class Novelties(models.Model):
+class Noveltie(models.Model):
     NoveltiesID = models.CharField('ArticleID', max_length=50, primary_key=True)
     image_new = models.ImageField(upload_to ='products')
     COLOR = [
@@ -57,4 +57,4 @@ class Novelties(models.Model):
     favorite_new = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return self.title_new
