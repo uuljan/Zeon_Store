@@ -42,7 +42,7 @@ class NoveltiesView(ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = NoveltiesSerializer
     queryset = Bestseller.objects.all()
-    pagination_class = PaginationBestseller
+    # pagination_class = PaginationBestseller
 
     def get_serializer_context(self):
         return {

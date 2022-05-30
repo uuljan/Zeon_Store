@@ -15,3 +15,4 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Bestseller, PostAdmin)
 
 admin.site.register(Slider)
+admin.site.register(Novelties)
