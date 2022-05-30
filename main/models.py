@@ -33,3 +33,28 @@ class Bestseller(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Novelties(models.Model):
+    NoveltiesID = models.CharField('ArticleID', max_length=50, primary_key=True)
+    image_new = models.ImageField(upload_to ='products')
+    COLOR = [
+        ('1', 'aquamarine'),
+        ('2', 'lightGreen'),
+        ('3', 'tan'),
+        ('4', 'saddleBrown'),
+        ('5', 'lavender'),
+        ('6', 'white'),
+        ('7', 'grey'),
+        ('8', 'red'),
+    ]
+    color_new = models.CharField(max_length=20, choices=COLOR)
+    title_new = models.CharField(max_length=50)
+    price_new = models. IntegerField()
+    price_without_discount_new = models.IntegerField(null=True, blank=True)
+    discount_new = models.IntegerField(null=True, blank=True)
+    size_new = models.CharField(max_length=20)
+    favorite_new = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
