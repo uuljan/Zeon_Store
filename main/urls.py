@@ -6,6 +6,8 @@ router = DefaultRouter()
 router.register('bestseller', BestsellerView, basename='Bestseller')
 router.register('slider', SliderView, basename='Slider')
 router.register('noveltie', NoveltieView, basename='Noveltie')
+router.register('collection', CollectionView, basename='Collection')
+router.register('advantage', AdvantageView, basename='Advantage')
 
 urlpatterns = [
     path('', include(router.urls)),

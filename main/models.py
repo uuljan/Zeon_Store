@@ -1,4 +1,5 @@
 from django.db import models
+from colorfield.fields import ColorField
 
 class Slider(models.Model):
     img1 = models.ImageField(upload_to='carusel-img')
@@ -10,26 +11,51 @@ class Slider(models.Model):
     # def __str__(self):
     #     return self.name
 
+class Collection(models.Model):
+    slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    image_collection = models.ImageField(upload_to='products', default="nno")
+    name = models.CharField(max_length=200, db_index=True)
+
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
 class Bestseller(models.Model):
+    collection = models.ForeignKey(Collection, related_name='products', default="сasual", on_delete=models.CASCADE)
+    # slug = models.SlugField(max_length=200, db_index=True)
     productID = models.CharField('ArticleID', max_length=50, primary_key=True)
     image = models.ImageField(upload_to ='products')
-    COLOR = [
-        ('1', 'aquamarine'),
-        ('2', 'lightGreen'),
-        ('3', 'tan'),
-        ('4', 'saddleBrown'),
-        ('5', 'lavender'),
-        ('6', 'white'),
-        ('7', 'grey'),
-        ('8', 'red'),
+    COLOR_PALETTE = [
+        ('#bed5d2', 'aquamarine'),
+        ('#d6eec4', 'lightGreen'),
+        ('#002b73', 'tan'),
+        ('#ac8549', 'saddleBrown'),
+        ('#bac0f8', 'lavender'),
+        ('#fdfdfd', 'white'),
+        ('#d3d3d2', 'grey'),
+        ('#ff8888', 'red'),
     ]
-    color = models.CharField(max_length=20, choices=COLOR)
+    color = ColorField(choices=COLOR_PALETTE)
+
+    # color = ColorField(image_field="image")
+
     title = models.CharField(max_length=50)
     price = models. IntegerField()
-    price_without_discount = models.IntegerField(null=True, blank=True)
-    discount = models.IntegerField(null=True, blank=True)
+    price_with_discount = models.IntegerField(blank=True)
+    discount = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size = models.CharField(max_length=20)
     favorite = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('title',)
+
+    def save(self, *args, **kwargs):
+        '''Расчитать стоимость со скидкой'''
+        self.price_with_discount = int(self.price * (100 - self.discount) / 100)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -38,23 +64,38 @@ class Bestseller(models.Model):
 class Noveltie(models.Model):
     NoveltiesID = models.CharField('ArticleID', max_length=50, primary_key=True)
     image_new = models.ImageField(upload_to ='products')
-    COLOR = [
-        ('1', 'aquamarine'),
-        ('2', 'lightGreen'),
-        ('3', 'tan'),
-        ('4', 'saddleBrown'),
-        ('5', 'lavender'),
-        ('6', 'white'),
-        ('7', 'grey'),
-        ('8', 'red'),
+    COLOR_PALETTE = [
+        ('#bed5d2', 'aquamarine'),
+        ('#d6eec4', 'lightGreen'),
+        ('#002b73', 'tan'),
+        ('#ac8549', 'saddleBrown'),
+        ('#bac0f8', 'lavender'),
+        ('#fdfdfd', 'white'),
+        ('#d3d3d2', 'grey'),
+        ('#ff8888', 'red'),
     ]
-    color_new = models.CharField(max_length=20, choices=COLOR)
+    color = ColorField(choices=COLOR_PALETTE)
     title_new = models.CharField(max_length=50)
     price_new = models. IntegerField()
-    price_without_discount_new = models.IntegerField(null=True, blank=True)
-    discount_new = models.IntegerField(null=True, blank=True)
+    price_with_discount_new = models.IntegerField(blank=True)
+    discount_new = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size_new = models.CharField(max_length=20)
     favorite_new = models.BooleanField(default=False)
 
+    def save(self, *args, **kwargs):
+        '''Расчитать стоимость со скидкой'''
+        self.price_with_discount_new = int(self.price_new * (100 - self.discount_new) / 100)
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.title_new
+
+
+
+
+class Advantage(models.Model):
+    image = models.ImageField(upload_to='products')
+    title_advantage = models.CharField(max_length=150)
+    description_advantage = models.TextField()
+
+    def __str__(self):
+        return self.title_advantage
