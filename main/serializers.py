@@ -13,8 +13,24 @@ class BestsellerSerializer(serializers.ModelSerializer):
         model = Bestseller
         fields = '__all__'
 
-class NoveltiesSerializer(serializers.ModelSerializer):
+class NoveltieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Noveltie
         fields = '__all__'
+
+
+class AdvantageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Advantage
+        fields = '__all__'
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Collection
+        fields = '__all__'
+
+
