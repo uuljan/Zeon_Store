@@ -10,5 +10,5 @@ router.register('collection', CollectionView, basename='Collection')
 router.register('advantage', AdvantageView, basename='Advantage')
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
