@@ -27,21 +27,6 @@ class Bestseller(models.Model):
     collection = models.ForeignKey(Collection, related_name='products', default="сasual", on_delete=models.CASCADE)
     # slug = models.SlugField(max_length=200, db_index=True)
     productID = models.CharField('ArticleID', max_length=50, primary_key=True)
-    image = models.ImageField(upload_to ='products')
-    COLOR_PALETTE = [
-        ('#bed5d2', 'aquamarine'),
-        ('#d6eec4', 'lightGreen'),
-        ('#002b73', 'tan'),
-        ('#ac8549', 'saddleBrown'),
-        ('#bac0f8', 'lavender'),
-        ('#fdfdfd', 'white'),
-        ('#d3d3d2', 'grey'),
-        ('#ff8888', 'red'),
-    ]
-    color = ColorField(choices=COLOR_PALETTE)
-
-    # color = ColorField(image_field="image")
-
     title = models.CharField(max_length=50)
     price = models. IntegerField()
     price_with_discount = models.IntegerField(blank=True)
@@ -59,6 +44,22 @@ class Bestseller(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ImageBestseller(models.Model):
+    image = models.ImageField(upload_to='products')
+    COLOR_PALETTE = [
+        ('#BED5D2', '#BED5D2'),
+        ('#D6EEC4', '#D6EEC4'),
+        ('#002B73', '#002B73'),
+        ('#AC8549', '#AC8549'),
+        ('#BAC0F8', '#BAC0F8'),
+        ('#FDFDFD', '#FDFDFD'),
+        ('#D3D3D2', '#D3D3D2'),
+        ('#FF8888', '#FF8888'),
+    ]
+    color = ColorField(choices=COLOR_PALETTE, default='#FF0000')
+    bestseller = models.ForeignKey('Bestseller', related_name='images', on_delete=models.CASCADE)
 
 
 class Noveltie(models.Model):

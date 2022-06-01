@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'drf_yasg',
     'ckeditor',
     'ckeditor_uploader',
     'colorfield',
+    'phonenumber_field',
 
     'main',
+    'callback_form',
 
 ]
 
