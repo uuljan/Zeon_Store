@@ -38,10 +38,10 @@ class SliderView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
-class NoveltieView(ModelViewSet):
+class NoveltyView(ModelViewSet):
     permission_classes = [AllowAny]
-    serializer_class = NoveltieSerializer
-    queryset = Noveltie.objects.all()
+    serializer_class = NoveltySerializer
+    queryset = Novelty.objects.all()
     pagination_class = MyPagination
 
     def get_serializer_context(self):
