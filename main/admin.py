@@ -5,8 +5,9 @@ admin.site.register(Bestseller)
 admin.site.register(Slider)
 admin.site.register(Novelty)
 admin.site.register(Collection)
-admin.site.register(ImageBestseller)
-admin.site.register(ImageNovelty)
+# admin.site.register(ImageBestseller)
+# admin.site.register(ImageNovelty)
+
 from .forms import AdvantageForm
 from .models import Advantage
 
