@@ -14,6 +14,5 @@ router.register('advantage', AdvantageView, basename='Advantage')
 urlpatterns = [
     path('', include(router.urls)),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('bestseller/', BestsellerView.as_view({'get': 'list'}), name='Bestseller'),
 
 ]

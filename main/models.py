@@ -1,5 +1,9 @@
 from django.db import models
 from colorfield.fields import ColorField
+from django.urls import reverse
+
+from product.models import ImageProduct
+
 
 class Slider(models.Model):
     img1 = models.ImageField(upload_to='carusel-img')
@@ -21,15 +25,17 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Bestseller(models.Model):
-    collection = models.ForeignKey(Collection, related_name='products', on_delete=models.CASCADE)
+    # collection = models.ForeignKey(Collection, related_name='product', on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     price = models. IntegerField()
     price_with_discount = models.IntegerField(blank=True)
     discount = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size = models.CharField(max_length=20)
     favorite = models.BooleanField(default=False)
-    # image = models.ImageField(upload_to='products')
+    image_color = models.ManyToManyField(ImageProduct, related_name='bestseller_img_color')
     class Meta:
         ordering = ('title',)
 
@@ -41,29 +47,16 @@ class Bestseller(models.Model):
     def __str__(self):
         return self.title
 
-class ImageBestseller(models.Model):
-    image = models.ImageField(upload_to='products')
-    COLOR_PALETTE = [
-        ('#BED5D2', '#BED5D2'),
-        ('#D6EEC4', '#D6EEC4'),
-        ('#002B73', '#002B73'),
-        ('#AC8549', '#AC8549'),
-        ('#BAC0F8', '#BAC0F8'),
-        ('#FDFDFD', '#FDFDFD'),
-        ('#D3D3D2', '#D3D3D2'),
-        ('#FF8888', '#FF8888'),
-    ]
-    color = ColorField(choices=COLOR_PALETTE, default='#FF0000')
-    bestseller = models.ForeignKey('Bestseller', related_name='images', on_delete=models.CASCADE)
 
 class Novelty(models.Model):
-    # image_new = models.ImageField(upload_to ='products')
+    image_new = models.ImageField(upload_to ='products')
     title_new = models.CharField(max_length=50)
     price_new = models. IntegerField()
     price_with_discount_new = models.IntegerField(blank=True)
     discount_new = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size_new = models.CharField(max_length=20)
     favorite_new = models.BooleanField(default=False)
+    image_color = models.ManyToManyField(ImageProduct, related_name='novelty_img_color')
 
     def save(self, *args, **kwargs):
         '''Расчитать стоимость со скидкой'''
@@ -71,21 +64,6 @@ class Novelty(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return self.title_new
-
-class ImageNovelty(models.Model):
-    image = models.ImageField(upload_to='products')
-    COLOR_PALETTE = [
-        ('#BED5D2', '#BED5D2'),
-        ('#D6EEC4', '#D6EEC4'),
-        ('#002B73', '#002B73'),
-        ('#AC8549', '#AC8549'),
-        ('#BAC0F8', '#BAC0F8'),
-        ('#FDFDFD', '#FDFDFD'),
-        ('#D3D3D2', '#D3D3D2'),
-        ('#FF8888', '#FF8888'),
-    ]
-    color = ColorField(choices=COLOR_PALETTE, default='#FF0000')
-    novelty = models.ForeignKey('Novelty', related_name='images_new', on_delete=models.CASCADE)
 
 
 
