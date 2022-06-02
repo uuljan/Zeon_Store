@@ -13,10 +13,14 @@ class BestsellerSerializer(serializers.ModelSerializer):
         model = Bestseller
         fields = '__all__'
 
-class NoveltieSerializer(serializers.ModelSerializer):
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
+    #     representation['image'] = instance.title
+
+class NoveltySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Noveltie
+        model = Novelty
         fields = '__all__'
 
 

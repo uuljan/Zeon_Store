@@ -1,14 +1,19 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 from .views import *
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
+
+router = routers.DefaultRouter()
 router.register('bestseller', BestsellerView, basename='Bestseller')
 router.register('slider', SliderView, basename='Slider')
-router.register('noveltie', NoveltieView, basename='Noveltie')
+router.register('novelty', NoveltyView, basename='Novelty')
 router.register('collection', CollectionView, basename='Collection')
 router.register('advantage', AdvantageView, basename='Advantage')
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('bestseller/', BestsellerView.as_view({'get': 'list'}), name='Bestseller'),
+
 ]
