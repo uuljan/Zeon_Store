@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register('bestseller', BestsellerView, basename='Bestseller')
 router.register('slider', SliderView, basename='Slider')
 router.register('novelty', NoveltyView, basename='Novelty')
-router.register('collection', CollectionView, basename='Collection')
+
 router.register('advantage', AdvantageView, basename='Advantage')
 
 urlpatterns = [

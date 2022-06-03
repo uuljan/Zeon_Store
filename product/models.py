@@ -1,7 +1,6 @@
 from django.db import models
 from colorfield.fields import ColorField
 
-# from main.models import Collection
 
 
 class ImageProduct(models.Model):
@@ -21,10 +20,21 @@ class ImageProduct(models.Model):
     def __str__(self):
         return self.color
 
+class Collection(models.Model):
+    slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    image_collection = models.ImageField(upload_to='products', default="nno")
+    name = models.CharField(max_length=200, db_index=True)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
-    # collection = models.ForeignKey(Collection, related_name='coll', on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, related_name='coll', on_delete=models.CASCADE, null=True)
     image_color = models.ManyToManyField(ImageProduct, related_name='image_color')
-    name = models.CharField(max_length=150, unique=True, null=False, blank=False)
+    name = models.CharField('Наименование', max_length=150, unique=True, null=False, blank=False)
     vendor = models.CharField(max_length=150, unique=True, null=False, blank=False)
     price = models.IntegerField()
     price_with_discount = models.IntegerField(blank=True)
@@ -42,6 +52,10 @@ class Product(models.Model):
         '''Стоимость со скидкой'''
         self.price_with_discount = int(self.price * (100 - self.discount) / 100)
         super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
     def __str__(self):
         return self.name

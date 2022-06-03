@@ -10,7 +10,7 @@ class ProductAdminForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorUploadingWidget())
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ('favorite',)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -18,3 +18,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ImageProduct)
+
+
+admin.site.register(Collection)
