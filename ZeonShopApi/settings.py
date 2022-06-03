@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'main',
     'callback_form',
     'product',
+    'coll_product',
+    'django_filters',
 
 ]
 
@@ -85,14 +87,21 @@ WSGI_APPLICATION = 'ZeonShopApi.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'zeon_db',
+#         'USER': 'hello',
+#         'PASSWORD': '1',
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'zeon_db',
-        'USER': 'hello',
-        'PASSWORD': '1',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

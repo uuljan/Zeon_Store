@@ -55,22 +55,6 @@ class NoveltyView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
-class CollectionView(ModelViewSet):
-    permission_classes = [AllowAny]
-    serializer_class = CollectionSerializer
-    queryset = Collection.objects.all()
-    pagination_class = MyPagination
-
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
 
 
 class AdvantageView(ModelViewSet):

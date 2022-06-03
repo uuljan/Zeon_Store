@@ -1,8 +1,6 @@
 from django.db import models
-from colorfield.fields import ColorField
-from django.urls import reverse
 
-from product.models import ImageProduct
+from product.models import ImageProduct, Collection, Product
 
 
 class Slider(models.Model):
@@ -13,29 +11,17 @@ class Slider(models.Model):
     img5 = models.ImageField(upload_to='carusel-img')
     main_url = models.URLField(max_length=200, blank=True)
 
-class Collection(models.Model):
-    slug = models.SlugField(max_length=200, db_index=True, unique=True)
-    image_collection = models.ImageField(upload_to='products', default="nno")
-    name = models.CharField(max_length=200, db_index=True)
-
-
-    class Meta:
-        ordering = ('name',)
-
-    def __str__(self):
-        return self.name
-
-
 
 class Bestseller(models.Model):
-    # collection = models.ForeignKey(Collection, related_name='product', on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, related_name='product', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=50)
-    price = models. IntegerField()
+    price = models.IntegerField()
     price_with_discount = models.IntegerField(blank=True)
     discount = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size = models.CharField(max_length=20)
     favorite = models.BooleanField(default=False)
     image_color = models.ManyToManyField(ImageProduct, related_name='bestseller_img_color')
+
     class Meta:
         ordering = ('title',)
 
@@ -49,9 +35,11 @@ class Bestseller(models.Model):
 
 
 class Novelty(models.Model):
-    image_new = models.ImageField(upload_to ='products')
+    # item1 = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    # novelty = models.BooleanField(default=False)
+    image_new = models.ImageField(upload_to='products')
     title_new = models.CharField(max_length=50)
-    price_new = models. IntegerField()
+    price_new = models.IntegerField()
     price_with_discount_new = models.IntegerField(blank=True)
     discount_new = models.IntegerField('Скидка в процентах', blank=True, default=0)
     size_new = models.CharField(max_length=20)
@@ -62,9 +50,9 @@ class Novelty(models.Model):
         '''Расчитать стоимость со скидкой'''
         self.price_with_discount_new = int(self.price_new * (100 - self.discount_new) / 100)
         super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title_new
-
 
 
 class Advantage(models.Model):

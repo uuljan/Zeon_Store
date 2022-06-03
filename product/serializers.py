@@ -6,6 +6,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+        # exclude = ('bestseller', 'novelty', )
 
     def to_representation(self, instance):
 
@@ -13,3 +14,15 @@ class ProductSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['collection'] = instance.collection.name
         return representation
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Collection
+
+        fields = '__all__'
+
+    def create(self, validated_data):
+        collection = Collection.objects.create(**validated_data)
+        return collection
