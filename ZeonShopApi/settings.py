@@ -43,12 +43,13 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'colorfield',
     'phonenumber_field',
+    'django_filters',
 
     'main',
     'callback_form',
     'product',
     'coll_product',
-    'django_filters',
+    'aboutUs',
 
 ]
 
@@ -127,8 +128,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -146,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# РЕДАКТОР CKEDITOR для поля description в модели продукта
+# РЕДАКТОР CKEDITOR для поля description
 
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
