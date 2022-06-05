@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('main.urls')),
     path('api/v1/', include('product.urls')),
+    path('api/v1/', include('aboutUs.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     path('api/v1/', include('callback_form.urls')),
