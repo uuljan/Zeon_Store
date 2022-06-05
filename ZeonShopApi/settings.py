@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'product',
     'coll_product',
     'aboutUs',
+    'offer',
 
 ]
 

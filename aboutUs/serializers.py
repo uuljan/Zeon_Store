@@ -6,7 +6,6 @@ class Image_aboutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image_about
-
         fields = '__all__'
 
     def create(self, validated_data):
