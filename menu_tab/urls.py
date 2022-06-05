@@ -5,6 +5,7 @@ from .views import *
 router = routers.DefaultRouter()
 
 router = routers.DefaultRouter()
+router.register('offer', OfferView, basename='Offer')
 router.register('about', AboutView, basename='AboutUs')
 
 

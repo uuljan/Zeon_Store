@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'callback_form',
     'product',
     'coll_product',
-    'aboutUs',
-    'offer',
+    'menu_tab',
+
 
 ]
 
