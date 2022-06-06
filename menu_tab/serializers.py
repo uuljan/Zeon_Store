@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Offer, About, Image_about
+from .models import *
 
 class OfferSerializer(serializers.ModelSerializer):
 
@@ -30,3 +30,28 @@ class AboutSerializer(serializers.ModelSerializer):
         representation['images'] = Image_aboutSerializer(instance.images.all(), many=True).data
         return representation
 
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ('question', )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['image'] = ImageQuestionSerializer(instance.image.all(), many=True).data
+        representation['reply'] = ReplySerializer(instance.replies.all(), many=True).data
+        return representation
+
+class ReplySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reply
+        fields = ('reply', )
+
+class ImageQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageQuestion
+        fields = ('image', )

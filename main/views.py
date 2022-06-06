@@ -2,7 +2,6 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
 
 from product.models import Product
 from .serializers import *

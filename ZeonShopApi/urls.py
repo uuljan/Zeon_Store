@@ -28,7 +28,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('main.urls')),
     path('api/v1/', include('product.urls')),
+    path('api/v1/', include('menu_tab.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
     path('api/v1/', include('callback_form.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

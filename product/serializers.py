@@ -9,8 +9,6 @@ class ProductSerializer(serializers.ModelSerializer):
         # exclude = ('bestseller', 'novelty', )
 
     def to_representation(self, instance):
-
-        # instance = "title": "Edited", "price": 199.99 ...
         representation = super().to_representation(instance)
         representation['collection'] = instance.collection.name
         return representation

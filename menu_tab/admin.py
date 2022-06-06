@@ -3,7 +3,7 @@ from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
-from menu_tab.models import Offer, About, Image_about
+from menu_tab.models import *
 
 
 class OfferAdminForm(forms.ModelForm):
@@ -28,7 +28,7 @@ class AboutAdminForm(forms.ModelForm):
     class Meta:
         model = About
         fields = '__all__'
-#
+
 class Image_aboutInline(admin.TabularInline):
     model = Image_about
     max_num = 3
@@ -42,3 +42,27 @@ class About(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+class NewsAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = News
+        fields = '__all__'
+
+@admin.register(News)
+class News(admin.ModelAdmin):
+    form = NewsAdminForm
+
+
+
+class ReplyInline(admin.TabularInline):
+    model = Reply
+    max_num = 1
+
+@admin.register(Question)
+class Question(admin.ModelAdmin):
+    inlines = [ReplyInline, ]
+
+
+
