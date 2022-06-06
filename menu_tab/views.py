@@ -1,7 +1,9 @@
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Offer, About
-from .serializers import OfferSerializer, AboutSerializer
+from main.views import MyPagination
+from .models import *
+from .serializers import *
+
 
 class OfferView(ModelViewSet):
     queryset = Offer.objects.all()
@@ -34,3 +36,31 @@ class AboutView(ModelViewSet):
     def get_serializer(self, *args, **kwargs):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
+
+
+class NewsView(ModelViewSet):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    pagination_class = MyPagination
+    def get_serializer_context(self):
+        return {
+            'request': self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+
+class QuestionView(ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    def get_serializer_context(self):
+        return {
+            'request': self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
