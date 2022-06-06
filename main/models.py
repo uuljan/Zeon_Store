@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-from product.models import ImageProduct, Collection, Product
+
+from product.models import ImageProduct, Product
 
 
 class Slider(models.Model):
@@ -12,27 +14,20 @@ class Slider(models.Model):
     main_url = models.URLField(max_length=200, blank=True)
 
 
-class Bestseller(models.Model):
-    collection = models.ForeignKey(Collection, related_name='product', on_delete=models.CASCADE, null=True)
-    title = models.CharField(max_length=50)
-    price = models.IntegerField()
-    price_with_discount = models.IntegerField(blank=True)
-    discount = models.IntegerField('Скидка в процентах', blank=True, default=0)
-    size = models.CharField(max_length=20)
+class ProductRelation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     favorite = models.BooleanField(default=False)
-    image_color = models.ManyToManyField(ImageProduct, related_name='bestseller_img_color')
-
-    class Meta:
-        ordering = ('title',)
-
-    def save(self, *args, **kwargs):
-        '''Расчитать стоимость со скидкой'''
-        self.price_with_discount = int(self.price * (100 - self.discount) / 100)
-        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return "{} - {} - Избранное:{}".format(self.user.username, self.product.name, self.favorite)
 
+class Bestseller(models.Model):
+    obj = models.ForeignKey(Product, related_name='best', on_delete=models.CASCADE, null=True)
+    bestseller = models.BooleanField(default=False, unique=True)
+
+    def __str__(self):
+        return "{}".format(self.obj)
 
 class Novelty(models.Model):
     # item1 = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

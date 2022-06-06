@@ -3,7 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 
-from product.models import Product
+from product.serializers import ProductSerializer
 from .serializers import *
 
 
@@ -11,6 +11,10 @@ from .serializers import *
 class MyPagination(PageNumberPagination):
     page_size = 8
     max_page_size = 1000
+
+class ProductRelation(ModelViewSet):
+    queryset = ProductRelation.objects.all()
+    serializer_class = ProductRelationSerializer
 
 class BestsellerView(ModelViewSet):
     permission_classes = [AllowAny]
