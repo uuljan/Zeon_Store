@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from main.serializers import FavoriteSerializer
 from .models import *
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -6,13 +7,13 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-        # exclude = ('bestseller', 'novelty', )
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['collection'] = instance.collection.name
-        return representation
+        representation['favorite'] = FavoriteSerializer(instance.product.all(), many=True).data
 
+        return representation
 
 class CollectionSerializer(serializers.ModelSerializer):
 

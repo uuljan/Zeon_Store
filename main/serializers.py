@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from product.serializers import ProductSerializer
 from .models import *
 
 class SliderSerializer(serializers.ModelSerializer):
@@ -9,20 +8,23 @@ class SliderSerializer(serializers.ModelSerializer):
         model = Slider
         fields = '__all__'
 
-class ProductRelationSerializer(serializers.ModelSerializer):
+class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductRelation
-        fields = ('product', 'favorite')
+        model = Favorite
+        fields = ('product', 'favorite', )
+
+    def create(self, validated_data):
+        favorite = validated_data('favorite')
+        return favorite
+
+
+
 class BestsellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bestseller
         fields = '__all__'
 
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     representation['name'] = BestsellerSerializer(instance.best.all(), many=True).data
-    #
-    #     return representation
+
 
 
 

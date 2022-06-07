@@ -12,9 +12,9 @@ class MyPagination(PageNumberPagination):
     page_size = 8
     max_page_size = 1000
 
-class ProductRelation(ModelViewSet):
-    queryset = ProductRelation.objects.all()
-    serializer_class = ProductRelationSerializer
+class Favorite(ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
 
 class BestsellerView(ModelViewSet):
     permission_classes = [AllowAny]
