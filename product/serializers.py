@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from main.serializers import FavoriteSerializer
 from .models import *
-
 class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -25,3 +23,14 @@ class CollectionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         collection = Collection.objects.create(**validated_data)
         return collection
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ('product', 'favorite', )
+
+class RandomProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RandomProduct
+        fields = ('product', 'favorite', )
+

@@ -8,7 +8,9 @@ router = routers.DefaultRouter()
 router.register('offer', OfferView, basename='Offer')
 router.register('about', AboutView, basename='AboutUs')
 router.register('news', NewsView, basename='News')
-router.register('questions', QuestionView, basename='questions')
+router.register('questions', QuestionView, basename='Questions')
+router.register('footer', FooterView, basename='Footer')
+
 
 urlpatterns = [
     path('', include(router.urls)),

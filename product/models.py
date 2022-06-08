@@ -52,8 +52,19 @@ class ImageProduct(models.Model):
         ('#D3D3D2', '#D3D3D2'),
         ('#FF8888', '#FF8888'),
     ]
-    color = ColorField(choices=COLOR_PALETTE, default='#BED5D2', unique=True)
+    color = ColorField(choices=COLOR_PALETTE, default='#BED5D2')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='image_color')
 
     def __str__(self):
         return self.color
+
+class Favorite(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
+    favorite = models.BooleanField(default=False)
+    quantity = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return "{} - Избранное:{}".format(self.product.name, self.favorite)
+
+class RandomProduct(models.Model):
+    product = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='rproduct')

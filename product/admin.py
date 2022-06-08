@@ -31,3 +31,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Collection)
+admin.site.register(Favorite)

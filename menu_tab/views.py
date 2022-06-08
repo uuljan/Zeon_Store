@@ -1,7 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 
 from main.views import MyPagination
-from .models import *
 from .serializers import *
 
 
@@ -17,11 +16,6 @@ class OfferView(ModelViewSet):
     def get_serializer(self, *args, **kwargs):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
-
-
-
-
-
 
 
 class AboutView(ModelViewSet):
@@ -55,6 +49,20 @@ class NewsView(ModelViewSet):
 class QuestionView(ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    def get_serializer_context(self):
+        return {
+            'request': self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)
+
+class FooterView(ModelViewSet):
+    queryset = Footer.objects.all()
+    serializer_class = FooterSerializer
+
+
     def get_serializer_context(self):
         return {
             'request': self.request

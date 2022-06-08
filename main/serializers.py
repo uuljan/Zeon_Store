@@ -8,14 +8,6 @@ class SliderSerializer(serializers.ModelSerializer):
         model = Slider
         fields = '__all__'
 
-class FavoriteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Favorite
-        fields = ('product', 'favorite', )
-
-    def create(self, validated_data):
-        favorite = validated_data('favorite')
-        return favorite
 
 
 

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -10,17 +10,10 @@ class Slider(models.Model):
     main_url = models.URLField(max_length=200, blank=True)
 
 
-class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
-    favorite = models.BooleanField(default=False)
-
-    def __str__(self):
-        return "{} - {} - Избранное:{}".format(self.user.username, self.product.name, self.favorite)
 
 class Bestseller(models.Model):
     obj = models.ForeignKey(Product, related_name='best', on_delete=models.CASCADE, null=True)
-    bestseller = models.BooleanField(default=False, unique=True)
+    bestseller = models.BooleanField(default=False)
 
     def __str__(self):
         return "{}".format(self.bestseller)
