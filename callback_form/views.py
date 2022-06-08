@@ -1,14 +1,18 @@
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from .forms import CallbackForm
+from callback_form.models import MyCallback
+from callback_form.serializers import MyCallbackSerializer
 
-@csrf_exempt
-def callback(request):
-    if request.method == "POST":
-        Callback = CallbackForm(request.POST)
-        if Callback.is_valid():
-            Callback.save()
-    else:
-        Callback = CallbackForm()
-    return Response(Callback)
+
+class MyCallbackView(ModelViewSet):
+    queryset = MyCallback.objects.all()
+    serializer_class = MyCallbackSerializer
+
+    def get_serializer_context(self):
+        return {
+            'request': self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)

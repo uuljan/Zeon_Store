@@ -4,7 +4,7 @@ from .models import *
 admin.site.register(Bestseller)
 admin.site.register(Slider)
 admin.site.register(Novelty)
-admin.site.register(ProductRelation)
+
 
 from .forms import AdvantageForm
 from .models import Advantage

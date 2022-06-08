@@ -7,9 +7,6 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = '__all__'
 
-
-
-
 class Image_aboutSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -55,3 +52,10 @@ class ImageQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageQuestion
         fields = ('image', )
+
+class FooterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Footer
+        fields = '__all__'
+

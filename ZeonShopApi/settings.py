@@ -48,10 +48,7 @@ INSTALLED_APPS = [
     'main',
     'callback_form',
     'product',
-    'coll_product',
     'menu_tab',
-    'cart',
-    # 'account',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CART_SESSION_ID = 'cart'
 ROOT_URLCONF = 'ZeonShopApi.urls'
 
 TEMPLATES = [
