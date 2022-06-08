@@ -98,5 +98,6 @@ class Footer(models.Model):
         super(Footer, self).save(*args, **kwargs)
 
 
+
     def __str__(self):
         return "{}".format(self.text)
