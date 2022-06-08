@@ -69,8 +69,9 @@ class Question(admin.ModelAdmin):
 
 @admin.register(Footer)
 class Footer(admin.ModelAdmin):
-    def has_add_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
+    pass
+    # def has_add_permission(self, request, obj=None):
+    #     return False
+    #
+    # def has_delete_permission(self, request, obj=None):
+    #     return False

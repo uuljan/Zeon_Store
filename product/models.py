@@ -26,7 +26,7 @@ class Product(models.Model):
     description = models.TextField()
     size_range = models.CharField(max_length=150, default='42-50', blank=True)
     structure = models.CharField(max_length=150)
-    line = models.IntegerField('Количество в линейке', default=5)
+    line = models.IntegerField('Количество в линейке', default=1)
     fabric = models.CharField(max_length=150)
     def save(self, *args, **kwargs):
         '''Стоимость со скидкой'''
@@ -38,7 +38,8 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
     def __str__(self):
-        return self.name
+        return "{} - {}".format(self.name, self.price)
+
 
 class ImageProduct(models.Model):
     image = models.ImageField(upload_to='products')
@@ -56,7 +57,7 @@ class ImageProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='image_color')
 
     def __str__(self):
-        return self.color
+        return "color: {} - image: {}".format(self.color, self.image)
 
 class Favorite(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
