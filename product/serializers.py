@@ -25,12 +25,15 @@ class CollectionSerializer(serializers.ModelSerializer):
         return collection
 
 class FavoriteSerializer(serializers.ModelSerializer):
+    product = serializers.StringRelatedField(many=False, read_only=True)
+
     class Meta:
         model = Favorite
-        fields = ('product', 'favorite', )
+        fields = ['favorite', 'product', 'quantity']
 
-class RandomProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RandomProduct
-        fields = ('product', 'favorite', )
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['quantity'] = len(Favorite.objects.all())
+
+        return representation
 

@@ -31,4 +31,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Collection)
-admin.site.register(Favorite)
+
+@admin.register(Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ['favorite', 'product']
