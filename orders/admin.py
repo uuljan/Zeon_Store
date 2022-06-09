@@ -17,7 +17,6 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ['order', 'product', 'price', 'quantity', 'line', 'product_quantity', 'cost']
-
+    list_display = ['order', 'product', 'price', 'price_with_discount', 'quantity']
 
 admin.site.register(OrderItem, OrderItemAdmin)

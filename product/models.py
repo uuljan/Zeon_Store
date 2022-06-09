@@ -26,7 +26,7 @@ class Product(models.Model):
     description = models.TextField()
     size_range = models.CharField(max_length=150, default='42-50', blank=True)
     structure = models.CharField(max_length=150)
-    line = models.IntegerField('Количество в линейке', default=1)
+    line = models.IntegerField('Количество в линейке', default=5)
     fabric = models.CharField(max_length=150)
     def save(self, *args, **kwargs):
         '''Стоимость со скидкой'''
@@ -62,10 +62,11 @@ class ImageProduct(models.Model):
 class Favorite(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     favorite = models.BooleanField(default=False)
-    quantity = models.PositiveSmallIntegerField(default=1)
+    quantity = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
+
+    # def save(self, *args, **kwargs):
+    #     self.quantity = Favorite.objects.all().count()
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return "{} - Избранное:{}".format(self.product.name, self.favorite)
-
-class RandomProduct(models.Model):
-    product = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='rproduct')
