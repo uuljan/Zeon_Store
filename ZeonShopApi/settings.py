@@ -43,11 +43,14 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'colorfield',
     'phonenumber_field',
+    'django_filters',
 
     'main',
     'callback_form',
     'product',
-
+    'menu_tab',
+    'cart',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +62,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CART_SESSION_ID = 'cart'
+DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 
 ROOT_URLCONF = 'ZeonShopApi.urls'
 
@@ -96,9 +102,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
+# AUTH_USER_MODEL = 'account.User'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -118,8 +131,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -137,7 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# РЕДАКТОР CKEDITOR для поля description в модели продукта
+# РЕДАКТОР CKEDITOR для поля description
 
 
 CKEDITOR_UPLOAD_PATH = "uploads/"

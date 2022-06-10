@@ -2,9 +2,8 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
 
-from product.models import Product
+from product.serializers import ProductSerializer
 from .serializers import *
 
 
@@ -12,6 +11,12 @@ from .serializers import *
 class MyPagination(PageNumberPagination):
     page_size = 8
     max_page_size = 1000
+
+class Pagination12(PageNumberPagination):
+    page_size = 12
+    max_page_size = 1000
+
+
 
 class BestsellerView(ModelViewSet):
     permission_classes = [AllowAny]
@@ -45,22 +50,6 @@ class NoveltyView(ModelViewSet):
     serializer_class = NoveltySerializer
     queryset = Novelty.objects.all()
     pagination_class = MyPagination
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
-class CollectionView(ModelViewSet):
-    permission_classes = [AllowAny]
-    serializer_class = CollectionSerializer
-    queryset = Collection.objects.all()
-    pagination_class = MyPagination
-
 
     def get_serializer_context(self):
         return {
