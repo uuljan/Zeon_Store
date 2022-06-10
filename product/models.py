@@ -2,12 +2,9 @@ from django.db import models
 from colorfield.fields import ColorField
 
 
-
-
-
 class Collection(models.Model):
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
-    image_collection = models.ImageField(upload_to='products',) #default="nno")
+    image_collection = models.ImageField(upload_to='products', )  # default="nno")
     name = models.CharField(max_length=200, db_index=True)
 
     class Meta:
@@ -15,6 +12,7 @@ class Collection(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     collection = models.ForeignKey(Collection, related_name='coll', on_delete=models.CASCADE, null=True)
@@ -28,6 +26,7 @@ class Product(models.Model):
     structure = models.CharField(max_length=150)
     line = models.IntegerField('Количество в линейке', default=5)
     fabric = models.CharField(max_length=150)
+
     def save(self, *args, **kwargs):
         '''Стоимость со скидкой'''
         self.price_with_discount = int(self.price * (100 - self.discount) / 100)
@@ -59,14 +58,15 @@ class ImageProduct(models.Model):
     def __str__(self):
         return "color: {} - image: {}".format(self.color, self.image)
 
+
 class Favorite(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
     favorite = models.BooleanField(default=False)
     quantity = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
 
-    # def save(self, *args, **kwargs):
-    #     self.quantity = Favorite.objects.all().count()
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.quantity = Favorite.objects.all().count()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return "{} - Избранное:{}".format(self.product.name, self.favorite)

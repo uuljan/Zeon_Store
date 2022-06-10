@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'callback_form',
     'product',
     'menu_tab',
-    'cart',
+    'mycart',
     'orders',
 ]
 
