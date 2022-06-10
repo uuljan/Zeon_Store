@@ -5,6 +5,7 @@ from .serializers import *
 
 
 class OfferView(ModelViewSet):
+    """test"""
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
 
@@ -57,6 +58,7 @@ class QuestionView(ModelViewSet):
     def get_serializer(self, *args, **kwargs):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
+
 
 class FooterView(ModelViewSet):
     queryset = Footer.objects.all()

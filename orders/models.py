@@ -1,6 +1,9 @@
 from django.db import models
+
+from mycart.models import Cart
 from product.models import Product
 from phonenumber_field.modelfields import PhoneNumberField
+
 
 class Order(models.Model):
     ORDER_STATUS = [
@@ -31,26 +34,26 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE, null=True)
-    price = models.IntegerField(null=True, blank=True)
-    price_with_discount = models.IntegerField(null=True, blank=True)
-    quantity = models.PositiveIntegerField(default=1)
-
+    cart = models.ForeignKey(Cart, related_name='cart_items', on_delete=models.CASCADE, null=True)
     line = models.IntegerField(verbose_name='Количество линеек', null=True, blank=True)
     product_quantity = models.IntegerField(verbose_name='Количество товаров', null=True, blank=True)
     cost = models.IntegerField(verbose_name='Стоимость', null=True, blank=True)
-    discount = models.IntegerField(verbose_name='Скидки', null=True)
-    total_cost = models.IntegerField(verbose_name='Итого к оплате', null=True)
-    def __str__(self):
-        return "{} - :{}".format(self.product.name, self.product.price)
+    discount = models.IntegerField(verbose_name='Скидки', null=True, blank=True)
+    total_cost = models.IntegerField(verbose_name='Итого к оплате', null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-        self.price = self.product.price
-        self.price_with_discount = self.product.price_with_discount
-        super().save(*args, **kwargs)
+    # def __str__(self):
+    # return "{} - :{}".format(self.product.name, self.product.price)
 
+    # for e in Product.objects.all():
+    #     p = e.price
+    # for item in Cart.objects.all():
+    #     q = item.quantity
 
-
-
-
-
+    # def save(self, *args, **kwargs):
+    #
+    #     # self.line = .objects.aggregate(total_likes=Sum('tt_like'))
+    #     self.product_quantity = self.line * 5
+    #     self.cost = self.cart.quantity * self.p * self.product_quantity
+    #     # self.price_with_discount = self.product.price_with_discount
+    #     # self.quantity = self.cart.quantity
+    #     super().save(*args, **kwargs)
