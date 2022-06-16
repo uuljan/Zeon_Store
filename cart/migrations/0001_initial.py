@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import phonenumber_field.modelfields
 
 
 class Migration(migrations.Migration):
@@ -15,41 +14,33 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name='Cart',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=50)),
-                ('last_name', models.CharField(max_length=50)),
-                ('email', models.EmailField(max_length=254)),
-                ('number', phonenumber_field.modelfields.PhoneNumberField(max_length=128, null=True, region=None, verbose_name='Номер телефона')),
-                ('country', models.CharField(max_length=250)),
-                ('city', models.CharField(max_length=100)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('order_status', models.CharField(choices=[('NEW', 'НОВЫЙ'), ('ISSUED', 'ОФОРМЛЕН'), ('CANCELED', 'ОТМЕНЕН')], default='NEW', max_length=55)),
+                ('first_name', models.CharField(blank=True, max_length=50, null=True)),
             ],
             options={
                 'verbose_name': 'Заказ',
                 'verbose_name_plural': 'Заказы',
-                'ordering': ('-created',),
             },
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name='CartItem',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.IntegerField(null=True, verbose_name='Количество товаров')),
-                ('order_cost', models.IntegerField(blank=True, null=True)),
-                ('total_cost', models.IntegerField(blank=True, null=True)),
-                ('order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='orders.order')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='product.product')),
+                ('cart_cost', models.IntegerField(blank=True, null=True)),
+                ('total_cart_cost', models.IntegerField(blank=True, null=True)),
+                ('cart', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='cart.cart')),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cart_product', to='product.product')),
             ],
             options={
-                'verbose_name': 'Детали заказа',
-                'verbose_name_plural': 'Детали заказа',
+                'verbose_name': 'Детали корзины',
+                'verbose_name_plural': 'Детали корзины',
             },
         ),
         migrations.CreateModel(
-            name='OrderInfo',
+            name='CartInfo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('lines', models.IntegerField(blank=True, null=True, verbose_name='Количество линеек')),
@@ -57,7 +48,7 @@ class Migration(migrations.Migration):
                 ('cost', models.IntegerField(blank=True, null=True, verbose_name='Стоимость')),
                 ('discount', models.IntegerField(blank=True, null=True, verbose_name='Скидка')),
                 ('total_cost', models.IntegerField(blank=True, null=True, verbose_name='Итого к оплате')),
-                ('order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='orders.order')),
+                ('cart', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='cart.cart')),
             ],
             options={
                 'verbose_name': ' Информация заказа',

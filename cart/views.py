@@ -3,9 +3,9 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import *
 
 
-class OrderView(ModelViewSet):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class CartView(ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
 
     def get_serializer_context(self):
         return {
@@ -16,9 +16,10 @@ class OrderView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
-class OrderItemView(ModelViewSet):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
+
+class CartItemView(ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
 
     def get_serializer_context(self):
         return {
@@ -29,9 +30,10 @@ class OrderItemView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
-class OrderInfoView(ModelViewSet):
-    queryset = OrderInfo.objects.all()
-    serializer_class = OrderInfoSerializer
+
+class CartInfoView(ModelViewSet):
+    queryset = CartInfo.objects.all()
+    serializer_class = CartInfoSerializer
 
     def get_serializer_context(self):
         return {

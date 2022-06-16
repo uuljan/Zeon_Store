@@ -5,6 +5,7 @@ from django_svg_image_form_field import SvgAndImageFormField
 
 
 class AdvantageForm(forms.ModelForm):
+    """Поле image для загрузки svg файла"""
     class Meta:
         model = Advantage
         exclude = []

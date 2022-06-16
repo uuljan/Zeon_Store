@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'callback_form',
     'product',
     'menu_tab',
-    'mycart',
+    'cart',
     'orders',
 ]
 
@@ -63,8 +63,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CART_SESSION_ID = 'cart'
-DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 
 ROOT_URLCONF = 'ZeonShopApi.urls'
 
@@ -94,7 +92,7 @@ WSGI_APPLICATION = 'ZeonShopApi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'zeon_db',
+        'NAME': 'zeon',
         'USER': 'hello',
         'PASSWORD': '1',
         'HOST': 'localhost',
@@ -102,16 +100,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-# AUTH_USER_MODEL = 'account.User'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -208,3 +196,4 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
