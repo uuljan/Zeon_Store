@@ -6,5 +6,6 @@ class MyCallbackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyCallback
-        fields = '__all__'
+        fields = ('name', 'number', 'type_of_appeal',
+                  'time', 'call_status')
 

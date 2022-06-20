@@ -6,6 +6,7 @@ from callback_form.serializers import MyCallbackSerializer
 
 class MyCallbackView(ModelViewSet):
     """View Обратный звонок"""
+
     queryset = MyCallback.objects.all()
     serializer_class = MyCallbackSerializer
 

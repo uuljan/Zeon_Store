@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from product.serializers import ProductSerializer
 from .models import *
 
 
@@ -18,20 +19,20 @@ class AdvantageSerializer(serializers.ModelSerializer):
         model = Advantage
         fields = ('image', 'title_advantage', 'description_advantage')
 
+
 class BestsellerSerializer(serializers.ModelSerializer):
     """Сериализатор Хиты продаж"""
+    obj = ProductSerializer()
 
     class Meta:
         model = Bestseller
-        fields = '__all__'
+        fields = ('obj', 'bestseller')
 
 
 class NoveltySerializer(serializers.ModelSerializer):
     """Сериализатор Новинки"""
+    item1 = ProductSerializer()
 
     class Meta:
         model = Novelty
-        fields = '__all__'
-
-
-
+        fields = ('item1', 'novelty')

@@ -4,6 +4,8 @@ from .serializers import *
 
 
 class OrderView(ModelViewSet):
+    """View заказа"""
+
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -16,7 +18,10 @@ class OrderView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
+
 class OrderItemView(ModelViewSet):
+    """View детали заказа"""
+
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
@@ -29,7 +34,10 @@ class OrderItemView(ModelViewSet):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
+
 class OrderInfoView(ModelViewSet):
+    """View детали товаров заказа"""
+
     queryset = OrderInfo.objects.all()
     serializer_class = OrderInfoSerializer
 

@@ -60,10 +60,20 @@ class ImageQuestionView(ModelViewSet):
 
 
 class FooterOneView(mixins.CreateModelMixin,
-                 mixins.ListModelMixin,
-                 mixins.RetrieveModelMixin,
-                 GenericViewSet):
+                    mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    GenericViewSet):
     """View для Футера"""
 
     queryset = Footer1.objects.all()
+    serializer_class = FooterOneSerializer
+
+
+class FooterTwoView(mixins.CreateModelMixin,
+                    mixins.ListModelMixin,
+                    mixins.RetrieveModelMixin,
+                    GenericViewSet):
+    """View для Футера"""
+
+    queryset = Footer2.objects.all()
     serializer_class = FooterOneSerializer
