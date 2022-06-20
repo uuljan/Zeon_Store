@@ -4,14 +4,15 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from main.views import MyPagination, Pagination12
-from .models import Collection, Favorite
-from product.models import Product
+from .models import Collection, Favorite, Product
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from .serializers import ProductSerializer, FavoriteSerializer
-from .serializers import CollectionSerializer
+from .serializers import ProductSerializer, \
+     FavoriteSerializer, CollectionSerializer
 
 
 class ProductViewSet(ModelViewSet):
+    """View продукта"""
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
@@ -19,12 +20,15 @@ class ProductViewSet(ModelViewSet):
 
     def list(self, request):
         '''Другие товары этой коллекции'''
+
         queryset = self.queryset
-        serializer = ProductSerializer(queryset, many=True, context={'request': request})
+        serializer = ProductSerializer(queryset, many=True,
+                                       context={'request': request})
         if not queryset:
             try:
                 queryset = Product.objects.order_by('?')[:5]
-                serializer = ProductSerializer(queryset, many=True, context={'request': request})
+                serializer = ProductSerializer(queryset, many=True,
+                                               context={'request': request})
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -33,6 +37,7 @@ class ProductViewSet(ModelViewSet):
     @action(detail=False, methods=['get'])
     def search(self, request, pk=None):
         """Функция поиска товара"""
+
         q = request.query_params.get('q')
         queryset = self.queryset.filter(name__icontains=q)
         if not queryset.count():
@@ -40,7 +45,8 @@ class ProductViewSet(ModelViewSet):
                 queryset = Product.objects.order_by('?')[:5]
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = ProductSerializer(queryset, many=True, context={'request': request})
+        serializer = ProductSerializer(queryset, many=True,
+                                       context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def get_serializer_context(self):
@@ -78,7 +84,6 @@ class FavoriteView(mixins.CreateModelMixin,
                    mixins.ListModelMixin,
                    mixins.RetrieveModelMixin,
                    GenericViewSet):
-
     '''View избранных'''
 
     queryset = Favorite.objects.all()
@@ -87,11 +92,13 @@ class FavoriteView(mixins.CreateModelMixin,
 
     def list(self, request):
         queryset = self.queryset
-        serializer = FavoriteSerializer(queryset, many=True, context={'request': request})
+        serializer = FavoriteSerializer(queryset, many=True,
+                                        context={'request': request})
         if not queryset:
             try:
                 queryset = Product.objects.order_by('?')[:5]
-                serializer = ProductSerializer(queryset, many=True, context={'request': request})
+                serializer = ProductSerializer(queryset, many=True,
+                                               context={'request': request})
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 

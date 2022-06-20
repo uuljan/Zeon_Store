@@ -27,7 +27,8 @@ class AboutSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['images'] = Image_aboutSerializer(instance.images.all(), many=True).data
+        representation['images'] = Image_aboutSerializer(instance.images.all(),
+                                                         many=True).data
         return representation
 
 
@@ -48,7 +49,8 @@ class ImageQuestionSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['help'] = QuestionSerializer(instance.questions.all(), many=True).data
+        representation['help'] = QuestionSerializer(instance.questions.all(),
+                                                    many=True).data
         return representation
 
 
@@ -61,6 +63,17 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 
 class FooterOneSerializer(serializers.ModelSerializer):
+    """Сериализатор для Футер1"""
+
     class Meta:
         model = Footer1
-        fields = '__all__'
+        fields = ('header_logo', 'footer_logo', 'text', 'header_contact')
+
+
+class FooterTwoSerializer(serializers.ModelSerializer):
+    """Сериализатор для Футер2"""
+
+    class Meta:
+        model = Footer2
+        fields = ('contact_number', 'mail', 'instagram',
+                  'telegram', 'whatsapp')

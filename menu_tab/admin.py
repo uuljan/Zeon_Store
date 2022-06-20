@@ -99,7 +99,7 @@ class Question(admin.ModelAdmin):
 
 @admin.register(Footer1)
 class Footer1(admin.ModelAdmin):
-    list_display = ['header_logo', 'footer_logo', 'text', 'header_contact']
+    list_display = ['id', 'header_logo', 'footer_logo', 'text', 'header_contact']
 
     def has_add_permission(self, request):
         """Функция скрывает кнопку сохранения, после одного экземпляра"""
@@ -109,9 +109,10 @@ class Footer1(admin.ModelAdmin):
             main = False
         return main
 
+
 @admin.register(Footer2)
 class Footer2(admin.ModelAdmin):
-    list_display = ['contact_number', 'mail', 'instagram',
+    list_display = ['id', 'contact_number', 'mail', 'instagram',
                     'telegram', 'whatsapp']
 
     def has_add_permission(self, request):

@@ -5,23 +5,18 @@ from .models import *
 
 
 class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
-        fields = '__all__'
+    """Сериализатор детали корзины"""
 
-
-
-class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
 
     class Meta:
-        model = CartItem
-        fields = ('cart', 'product', 'quantity')
-
-
+        model = Cart
+        fields = ('user', 'product', 'quantity', 'cart_cost', 'total_cart_cost')
 
 
 class CartInfoSerializer(serializers.ModelSerializer):
+    """Сериализатор детали товаров корзины"""
+
     class Meta:
         model = CartInfo
-        fields = '__all__'
+        fields = ('cart', 'lines', 'product_quantity', 'cost', 'discount', 'total_cost')

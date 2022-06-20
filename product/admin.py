@@ -26,24 +26,25 @@ class ImageProductInline(admin.TabularInline):
     model = ImageProduct
     max_num = 8
 
+
 class ProductAdminForm(forms.ModelForm):
-    description = forms.CharField(label='Описание', widget=CKEditorUploadingWidget())
+    description = forms.CharField(label='Описание',
+                                  widget=CKEditorUploadingWidget()
+                                  )
 
     class Meta:
         model = Product
         fields = '__all__'
 
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ImageProductInline, BestsellerInline, NoveltyInline]
     form = ProductAdminForm
-    list_display = ['id', 'collection', 'name', 'vendor', 'price', 'price_with_discount', 'discount', 'description',
+    list_display = ['id', 'collection', 'name', 'vendor', 'price',
+                    'price_with_discount', 'discount', 'description',
                     'size_range',
                     'structure', 'line', 'fabric', 'bestseller', 'novelty']
-
-    # def collection(self, obj):
-    #     for e in Collection.objects.all():
-    #         return e.name
 
     def bestseller(self, obj):
         for e in Bestseller.objects.all():
@@ -54,9 +55,6 @@ class ProductAdmin(admin.ModelAdmin):
             return e.novelty
 
 
-
-
-
 @admin.register(Favorite)
 class FavoriteAdmin(admin.ModelAdmin):
-    list_display = ['favorite', 'product']
+    list_display = ['id', 'favorite', 'product', 'quantity', 'user']

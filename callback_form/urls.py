@@ -5,8 +5,6 @@ from .views import *
 router = routers.DefaultRouter()
 router.register('callback', MyCallbackView, basename='MyCallback')
 
-
-
 urlpatterns = [
     path('', include(router.urls)),
 ]
