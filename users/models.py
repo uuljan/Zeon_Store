@@ -6,7 +6,6 @@ class User(AbstractUser):
     email = models.EmailField(primary_key=True,
                               verbose_name='Email пользователя'
                               )
-    USERNAME_FIELD = 'username'
 
     def __str__(self):
         return "{}".format(self.username)
@@ -14,3 +13,5 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+

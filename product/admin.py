@@ -9,7 +9,7 @@ from .models import *
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'image_collection', 'name']
+    list_display = ['name', 'image_collection']
 
 
 class BestsellerInline(admin.TabularInline):

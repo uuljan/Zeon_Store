@@ -7,10 +7,7 @@ from users.models import User
 
 class Collection(models.Model):
     """Коллекция товаров"""
-    slug = models.SlugField(max_length=100,
-                            primary_key=True,
-                            blank=True
-                            )
+
     name = models.CharField(max_length=200,
                             db_index=True,
                             verbose_name='Название'
@@ -24,7 +21,7 @@ class Collection(models.Model):
         verbose_name_plural = 'Коллекции'
 
     def __str__(self):
-        return "{}".format(self.slug)
+        return "{}".format(self.name)
 
 
 class Product(models.Model):
