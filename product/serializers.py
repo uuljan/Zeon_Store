@@ -37,7 +37,7 @@ class CollectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collection
-        fields = ('name',)
+        fields = ('name', 'image_collection')
 
 
 class FavoriteSerializer(serializers.ModelSerializer):

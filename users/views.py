@@ -1,10 +1,12 @@
-from rest_framework import status
+from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 
 from .models import User
 from .serializers import RegistrationSerializer, LoginSerializer
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
+
+
 
 
 class RegistrationView(APIView):
@@ -21,3 +23,5 @@ class RegistrationView(APIView):
 class LoginView(ObtainAuthToken):
     queryset = User.objects.all()
     serializer_class = LoginSerializer
+
+
