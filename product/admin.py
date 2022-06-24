@@ -58,3 +58,4 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Favorite)
 class FavoriteAdmin(admin.ModelAdmin):
     list_display = ['id', 'favorite', 'product', 'quantity', 'user']
+

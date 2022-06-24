@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'ZeonShopApi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'zeon_database',
+        'NAME': 'zeon_db',
         'USER': 'hello',
         'PASSWORD': '1',
         'HOST': 'localhost',

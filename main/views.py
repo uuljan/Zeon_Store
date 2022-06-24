@@ -30,15 +30,6 @@ class SliderView(mixins.CreateModelMixin,
     serializer_class = SliderSerializer
     queryset = Slider.objects.all()
 
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
 
 class AdvantageView(mixins.CreateModelMixin,
                     mixins.ListModelMixin,
@@ -48,15 +39,6 @@ class AdvantageView(mixins.CreateModelMixin,
 
     serializer_class = AdvantageSerializer
     queryset = Advantage.objects.all()
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
 
 
 class BestsellerView(mixins.CreateModelMixin,
@@ -69,15 +51,6 @@ class BestsellerView(mixins.CreateModelMixin,
     queryset = Bestseller.objects.all()
     pagination_class = MyPagination
 
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
 
 class NoveltyView(mixins.CreateModelMixin,
                   mixins.ListModelMixin,
@@ -88,12 +61,3 @@ class NoveltyView(mixins.CreateModelMixin,
     serializer_class = NoveltySerializer
     queryset = Novelty.objects.all()
     pagination_class = MyPagination
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
