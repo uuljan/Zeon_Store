@@ -1,61 +1,79 @@
 from rest_framework import serializers
 from .models import *
 
+
 class OfferSerializer(serializers.ModelSerializer):
+    """Сериализатор Публичная оферта"""
 
     class Meta:
         model = Offer
-        fields = '__all__'
+        fields = ('title', 'description')
+
 
 class Image_aboutSerializer(serializers.ModelSerializer):
+    """Сериализатор О нас для картинок"""
 
     class Meta:
         model = Image_about
-        fields = '__all__'
+        fields = ("image",)
 
-    def create(self, validated_data):
-        image_about = Image_about.objects.create(**validated_data)
-        return image_about
 
 class AboutSerializer(serializers.ModelSerializer):
+    """Сериализатор О нас"""
+
     class Meta:
         model = About
-        exclude = ('id', )
+        fields = ('title', "description")
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['images'] = Image_aboutSerializer(instance.images.all(), many=True).data
+        representation['images'] = Image_aboutSerializer(instance.images.all(),
+                                                         many=True).data
         return representation
+
 
 class NewsSerializer(serializers.ModelSerializer):
+    """Сериализатор Новости"""
+
     class Meta:
         model = News
-        fields = '__all__'
+        fields = ('image', 'title', 'description')
 
-class QuestionSerializer(serializers.ModelSerializer):
+
+class ImageQuestionSerializer(serializers.ModelSerializer):
+    """Сериализатор для Вопрос/Ответ"""
+
     class Meta:
-        model = Question
-        fields = ('question', )
+        model = ImageQuestion
+        fields = ('image',)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['image'] = ImageQuestionSerializer(instance.image.all(), many=True).data
-        representation['reply'] = ReplySerializer(instance.replies.all(), many=True).data
+        representation['help'] = QuestionSerializer(instance.questions.all(),
+                                                    many=True).data
         return representation
 
-class ReplySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reply
-        fields = ('reply', )
 
-class ImageQuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ImageQuestion
-        fields = ('image', )
-
-class FooterSerializer(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
+    """Сериализатор для Вопрос/Ответ"""
 
     class Meta:
-        model = Footer
-        fields = '__all__'
+        model = Question
+        fields = ('question', 'reply')
 
+
+class FooterOneSerializer(serializers.ModelSerializer):
+    """Сериализатор для Футер1"""
+
+    class Meta:
+        model = Footer1
+        fields = ('header_logo', 'footer_logo', 'text', 'header_contact')
+
+
+class FooterTwoSerializer(serializers.ModelSerializer):
+    """Сериализатор для Футер2"""
+
+    class Meta:
+        model = Footer2
+        fields = ('contact_number', 'mail', 'instagram',
+                  'telegram', 'whatsapp')

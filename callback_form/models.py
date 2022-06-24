@@ -1,25 +1,32 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-class CustomDateTimeField(models.DateTimeField):
-    def value_to_string(self, obj):
-        val = self.value_from_object(obj)
-        if val:
-            val.replace(microsecond=0)
-            return val.isoformat()
-        return ''
 
 class MyCallback(models.Model):
+    """Модель Обратный звонок"""
+
     STATUS = [
         ('YES', 'ДА'),
         ('NO', 'НЕТ'),
     ]
-    call_status = models.CharField(choices=STATUS, max_length=20, default='NO', verbose_name="Статус позвонили")
+    call_status = models.CharField(choices=STATUS, max_length=20, default='NO',
+                                   verbose_name="Статус позвонили"
+                                   )
     name = models.CharField(max_length=120, verbose_name="Имя")
     number = PhoneNumberField(null=False, verbose_name="Номер телефона")
-    type_of_appeal = models.CharField(max_length=55, default='Обратный звонок', verbose_name="Тип обращения")
-    timestamp = CustomDateTimeField(auto_now=False, auto_now_add=True)
+    type_of_appeal = models.CharField(max_length=55, default='Обратный звонок',
+                                      verbose_name="Тип обращения"
+                                      )
+    time = models.DateTimeField(null=True, auto_now=True,
+                                verbose_name="Время обращения")
+
+    class Meta:
+        verbose_name = 'Обратный звонок'
+        verbose_name_plural = 'Обратный звонок'
 
     def __str__(self):
-        return "Имя: {} - Номер телефона: {} - Дата обращения: {} - " \
-               "Тип обращения: {}".format(self.name, self.number, self.timestamp, self.type_of_appeal)
+        return "Имя: {} - " \
+               "Номер телефона: {} - " \
+               "Дата обращения: {} - " \
+               "Тип обращения: {}".format(self.name, self.number,
+                                          self.time, self.type_of_appeal)

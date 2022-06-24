@@ -1,39 +1,38 @@
 from rest_framework import serializers
 
+from product.serializers import ProductSerializer
 from .models import *
 
+
 class SliderSerializer(serializers.ModelSerializer):
+    """Сериализатор Слайдера"""
 
     class Meta:
         model = Slider
-        fields = '__all__'
-
-
-
-
-class BestsellerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Bestseller
-        fields = '__all__'
-
-
-
-
-
-class NoveltySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Novelty
-        fields = '__all__'
+        fields = ('img', 'main_url')
 
 
 class AdvantageSerializer(serializers.ModelSerializer):
+    """Сериализатор Наши преимущества"""
 
     class Meta:
         model = Advantage
-        fields = '__all__'
+        fields = ('image', 'title_advantage', 'description_advantage')
 
 
+class BestsellerSerializer(serializers.ModelSerializer):
+    """Сериализатор Хиты продаж"""
+    obj = ProductSerializer()
+
+    class Meta:
+        model = Bestseller
+        fields = ('obj', 'bestseller')
 
 
+class NoveltySerializer(serializers.ModelSerializer):
+    """Сериализатор Новинки"""
+    item1 = ProductSerializer()
 
+    class Meta:
+        model = Novelty
+        fields = ('item1', 'novelty')
