@@ -26,7 +26,8 @@ class Collection(models.Model):
 
 class Product(models.Model):
     """Модель Товар"""
-    collection = models.ForeignKey(Collection, related_name='coll',
+    size_range = '42-50'
+    collection = models.ForeignKey(Collection, related_name='products',
                                    on_delete=models.CASCADE,
                                    null=True, blank=True
                                    )
@@ -44,9 +45,6 @@ class Product(models.Model):
                                    verbose_name='Процент скидки'
                                    )
     description = models.TextField(verbose_name='Описание')
-    size_range = models.CharField(max_length=150, default='42-50', blank=True,
-                                  verbose_name='Размерный ряд'
-                                  )
     structure = models.CharField(max_length=150, verbose_name='Состав ткани')
     line = models.IntegerField(default=5, verbose_name='Количество в линейке')
     fabric = models.CharField(max_length=150, verbose_name='Материал')
@@ -122,3 +120,4 @@ class Favorite(models.Model):
 
     def __str__(self):
         return self.product.__str__()
+

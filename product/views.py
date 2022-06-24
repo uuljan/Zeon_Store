@@ -7,28 +7,27 @@ from main.views import MyPagination, Pagination12
 from .models import Collection, Favorite, Product
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .serializers import ProductSerializer, \
-     FavoriteSerializer, CollectionSerializer
+    FavoriteSerializer, CollectionSerializer
 
 
 class ProductViewSet(ModelViewSet):
     """View продукта"""
 
-    queryset = Product.objects.all()
+    queryset = Collection.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['collection']
 
     def list(self, request):
         '''Другие товары этой коллекции'''
-
-        queryset = self.queryset
+        queryset = Product.objects.all()
         serializer = ProductSerializer(queryset, many=True,
                                        context={'request': request})
         if not queryset:
             try:
-                queryset = Product.objects.order_by('?')[:5]
-                serializer = ProductSerializer(queryset, many=True,
-                                               context={'request': request})
+                queryset = Collection.objects.order_by('?')[:5]
+                serializer = CollectionSerializer(queryset, many=True,
+                                                  context={'request': request})
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -45,18 +44,9 @@ class ProductViewSet(ModelViewSet):
                 queryset = Product.objects.order_by('?')[:5]
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = ProductSerializer(queryset, many=True,
-                                       context={'request': request})
+        serializer = CollectionSerializer(queryset, many=True,
+                                          context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
 
 
 class CollectionView(mixins.CreateModelMixin,
@@ -70,15 +60,6 @@ class CollectionView(mixins.CreateModelMixin,
     serializer_class = CollectionSerializer
     pagination_class = MyPagination
 
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
 
 class FavoriteView(mixins.CreateModelMixin,
                    mixins.ListModelMixin,
@@ -86,29 +67,20 @@ class FavoriteView(mixins.CreateModelMixin,
                    GenericViewSet):
     '''View избранных'''
 
-    queryset = Favorite.objects.all()
+
     serializer_class = FavoriteSerializer
     pagination_class = Pagination12
 
     def list(self, request):
-        queryset = self.queryset
+        queryset = Favorite.objects.all()
         serializer = FavoriteSerializer(queryset, many=True,
                                         context={'request': request})
         if not queryset:
             try:
-                queryset = Product.objects.order_by('?')[:5]
-                serializer = ProductSerializer(queryset, many=True,
+                queryset = Collection.objects.order_by('?')[:5]
+                serializer = CollectionSerializer(queryset, many=True,
                                                context={'request': request})
             except IndexError:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)

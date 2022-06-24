@@ -32,15 +32,6 @@ class NewsView(ModelViewSet):
     serializer_class = NewsSerializer
     pagination_class = MyPagination
 
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
-
 
 class ImageQuestionView(ModelViewSet):
     """View для Помощь"""
@@ -48,15 +39,6 @@ class ImageQuestionView(ModelViewSet):
     queryset = ImageQuestion.objects.all()
     serializer_class = ImageQuestionSerializer
     query = Question.objects.all()
-
-    def get_serializer_context(self):
-        return {
-            'request': self.request
-        }
-
-    def get_serializer(self, *args, **kwargs):
-        kwargs['context'] = self.get_serializer_context()
-        return self.serializer_class(*args, **kwargs)
 
 
 class FooterOneView(mixins.CreateModelMixin,
